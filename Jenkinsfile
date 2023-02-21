@@ -21,8 +21,8 @@ pipeline {
 	stage('Compare and Merge Release Branch') {
     steps {
         script {
-        	def file1 = readFile('fashion-mnist-train-1.csv.txt').trim().toDouble()
-		def file2 = readFile('fashion-mnist-train-2.csv.txt').trim().toDouble()
+        	def file1 = readFile('fashion-mnist-train-1.csv._accuracy.txt').trim().toDouble()
+		def file2 = readFile('fashion-mnist-train-2.csv_accuracy.txt').trim().toDouble()
 
 		if (file2 > file1) {
 		    sh 'git checkout main'
