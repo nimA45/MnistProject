@@ -23,15 +23,14 @@ pipeline {
         	sh """
 			file1=$(cat fashion-mnist-train-1.csv_accuracy.txt | sed 's/[[:space:]]*$//')
 			file2=$(cat fashion-mnist-train-2.csv_accuracy.txt | sed 's/[[:space:]]*$//')
-
-
-			if [ "\$file2" '>' "\$file1" ]; then
+			if [ "${file2}" '>' "${file1}" ]; then
 			    git checkout main
 			    git merge release
 			    git branch -D release
 			else
 			    git branch -D release
-			fi
+fi
+
 		"""
     }
 }
