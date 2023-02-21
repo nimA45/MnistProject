@@ -15,7 +15,7 @@ pipeline {
         }
         stage ('Test App'){
             steps{
-                sh 'python test.py'
+                sh '/Users/nima/miniconda3/bin/python test.py'
             }
         }
         
