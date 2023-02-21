@@ -24,7 +24,7 @@ def model(file):
     import joblib
 
     # Save the model to disk
-    filename ='trained_model.joblib'
+    filename =file +'_trained_model.joblib'
     joblib.dump(clf, filename)
 import sys
  
