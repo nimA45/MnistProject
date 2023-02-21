@@ -17,7 +17,7 @@ def index():
         pixels = np.array([int(pixel) for pixel in image_data.split(',')])
 
         if len(pixels) != 784:
-            return 'Error: Input data must contain 784 pixels (28x28), {} given'.format(len(pixels))
+            return 'Error: must contain 784 pixels (28x28), {} you have : '.format(len(pixels))
 
         pixels = pixels.reshape(1, 784)
 
