@@ -34,9 +34,7 @@ pipeline {
 		    sh '/Users/nima/miniconda3/bin/python model.py fashion-mnist-train-2.csv'
 		    }
 	    }
-	    stage(' Compare Accurary and merge or not'){
-		    steps{
-			    sh stage('Compare Accuracy and merge or not') {
+	stage('Compare Accuracy and merge or not') {
     steps {
         sh '''
             if [ "$(head -n 1 fashion-mnist-train-2.csv_accuracy.txt)" -gt "$(head -n 1 fashion-mnist-train-1.csv_accuracy.txt)" ]; then
@@ -46,8 +44,6 @@ pipeline {
     }
 }
 
-		    }
-	    }
         
     }
 }
