@@ -36,7 +36,16 @@ pipeline {
 	    }
 	    stage(' Compare Accurary and merge or not'){
 		    steps{
-			    sh'if line=$(head -n 1 fashion-mnist-train-2.csv_accuracy.txt) > line=$(head -n 1 fashion-mnist-train-1.csv_accuracy.txt); then /Users/nima/miniconda3/bin/python print("yes"); fi'
+			    sh stage('Compare Accuracy and merge or not') {
+    steps {
+        sh '''
+            if [ "$(head -n 1 fashion-mnist-train-2.csv_accuracy.txt)" -gt "$(head -n 1 fashion-mnist-train-1.csv_accuracy.txt)" ]; then
+                /Users/nima/miniconda3/bin/python -c "print('yes')"
+            fi
+        '''
+    }
+}
+
 		    }
 	    }
         
