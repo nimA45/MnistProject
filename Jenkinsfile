@@ -37,7 +37,7 @@ pipeline {
 	stage('Compare Accuracy and Merge or Delete Release') {
     steps {
         sh '''
-            if [ "$(head -n 1 fashion-mnist-train-2.csv_accuracy.txt)" -gt "$(head -n 1 fashion-mnist-train-1.csv_accuracy.txt)" ]; then
+            if [ "$(cut -d'.' -f1 fashion-mnist-train-2.csv_accuracy.txt)" -gt "$(cut -d'.' -f1 fashion-mnist-train-1.csv_accuracy.txt)" ]; then
                 git checkout main
                 git merge release
                 git branch -d release
@@ -47,6 +47,7 @@ pipeline {
         '''
     }
 }
+
 
 
         
