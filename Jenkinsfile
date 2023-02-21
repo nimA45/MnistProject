@@ -18,6 +18,27 @@ pipeline {
                 sh '/Users/nima/miniconda3/bin/python test.py'
             }
         }
+	stage('Check and Delete Release Branch') {
+	steps {
+	sh 'if git show-ref --verify --quiet refs/heads/release; then git branch -D release; fi'
+	}
+	}
+
+	stage('Create Release Branch') {
+		steps {
+	sh 'git checkout -b release'
+		}
+	}
+	    stage('Train new model '){
+		    steps{
+		    sh '/Users/nima/miniconda3/bin/python model.py fashion-mnist-train-2.csv'
+		    }
+	    }
+	    stage(' Compare Accurary and merge or not'){
+		    steps{
+			    sh'if line=$(head -n 1 fashion-mnist-train-2.csv_accuracy.txt) > line=$(head -n 1 fashion-mnist-train-1.csv_accuracy.txt); then /Users/nima/miniconda3/bin/python print("yes"); fi'
+		    }
+	    }
         
     }
 }
