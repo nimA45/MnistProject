@@ -34,15 +34,20 @@ pipeline {
 		    sh '/Users/nima/miniconda3/bin/python model.py fashion-mnist-train-2.csv'
 		    }
 	    }
-	stage('Compare Accuracy and merge or not') {
+	stage('Compare Accuracy and Merge or Delete Release') {
     steps {
         sh '''
             if [ "$(head -n 1 fashion-mnist-train-2.csv_accuracy.txt)" -gt "$(head -n 1 fashion-mnist-train-1.csv_accuracy.txt)" ]; then
-                /Users/nima/miniconda3/bin/python -c "print('yes')"
+                git checkout main
+                git merge release
+                git branch -d release
+            else
+                git branch -d release
             fi
         '''
     }
 }
+
 
         
     }
