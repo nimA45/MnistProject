@@ -22,7 +22,7 @@ pipeline {
     steps {
         	sh """
 			file1=\$(cat fashion-mnist-train-1.csv_accuracy.txt | tr -d '[:space:]')
-			file2=\$(cat fashion-mnist-train-2.csv_accuracy.txt.txt | tr -d '[:space:]')
+			file2=\$(cat fashion-mnist-train-2.csv_accuracy.txt | tr -d '[:space:]')
 
 			if [ "\$file2" '>' "\$file1" ]; then
 			    git checkout main
