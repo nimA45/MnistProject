@@ -20,17 +20,16 @@ pipeline {
 	    }
 	stage('Compare and Merge Release Branch') {
     steps {
-        	sh """
-			file1=$(cat fashion-mnist-train-1.csv_accuracy.txt | sed 's/[[:space:]]*$//')
-			file2=$(cat fashion-mnist-train-2.csv_accuracy.txt | sed 's/[[:space:]]*$//')
-			if [ "${file2}" '>' "${file1}" ]; then
+		sh """
+			file1=\$(cat fichier1.txt | tr -d '[:space:]')
+			file2=\$(cat fichier2.txt | tr -d '[:space:]')
+
+			if [ "\$file2" '>' "\$file1" ]; then
 			    git checkout main
 			    git merge release
-			    git branch -D release
 			else
 			    git branch -D release
-fi
-
+			fi
 		"""
     }
 }
@@ -57,5 +56,3 @@ fi
 	    
     }
 }
-
-	
