@@ -20,20 +20,20 @@ pipeline {
 	    }
 	stage('Compare and Merge Release Branch') {
     steps {
-        script {
-        	def file1 = readFile('fashion-mnist-train-1.csv_accuracy.txt').trim().toDouble()
-		def file2 = readFile('fashion-mnist-train-2.csv_accuracy.txt').trim().toDouble()
+        	sh """
+			file1=\$(cat fashion-mnist-train-1.csv_accuracy.txt | tr -d '[:space:]')
+			file2=\$(cat fashion-mnist-train-2.csv_accuracy.txt.txt | tr -d '[:space:]')
 
-		if (file2 > file1) {
-		    sh 'git checkout main'
-		    sh 'git merge release'
-		} else {
-		    sh 'git branch -D release'
-		}
-	}
-
+			if [ "\$file2" '>' "\$file1" ]; then
+			    git checkout main
+			    git merge release
+			else
+			    git branch -D release
+			fi
+		"""
     }
 }
+
 
 	    
         stage('Build') {
