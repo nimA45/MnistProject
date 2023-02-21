@@ -34,19 +34,20 @@ pipeline {
 		    sh '/Users/nima/miniconda3/bin/python model.py fashion-mnist-train-2.csv'
 		    }
 	    }
-	stage('Compare Accuracy and Merge or Delete Release') {
+	stage('Compare and Merge Release Branch') {
     steps {
-        sh '''
-            if [ "$(cut -d'.' -f1 fashion-mnist-train-2.csv_accuracy.txt)" -gt "$(cut -d'.' -f1 fashion-mnist-train-1.csv_accuracy.txt)" ]; then
-                git checkout main
-                git merge release
-                git branch -d release
-            else
-                git branch -d release
-            fi
-        '''
+        script {
+            def accuracy1 = readFile('fashion-mnist-train-1.csv_accuracy.txt').trim().toDouble()
+            def accuracy2 = readFile('fashion-mnist-train-2.csv_accuracy.txt').trim().toDouble()
+            
+            if (accuracy2 > accuracy1) {
+                sh 'git checkout main'
+                sh 'git merge release'
+            }
+        }
     }
 }
+
 
 
 
