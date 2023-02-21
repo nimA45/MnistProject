@@ -18,7 +18,7 @@ def model(file):
     y_pred = clf.predict(test)
     acc = accuracy_score(test_label, y_pred)
     print("Accuracy on validation set: {:.2f}%".format(acc * 100))
-    fichier =  open(file + "_accuracy.txt", "a")
+    fichier =  open(file + "_accuracy.txt", "w")
     fichier.write(str(acc))
 
     import joblib
