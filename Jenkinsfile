@@ -30,6 +30,7 @@ pipeline {
 		} else {
 		    sh 'git branch -D release'
 		}
+	}
 
     }
 }
