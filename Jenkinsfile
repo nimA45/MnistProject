@@ -27,6 +27,7 @@ pipeline {
 			if [ "\$file2" '>' "\$file1" ]; then
 			    git checkout main
 			    git merge release
+			    git branch -D release
 			else
 			    git branch -D release
 			fi
