@@ -16,7 +16,6 @@ pipeline {
 	    stage('Train new model '){
 		    steps{
 		    sh '/Users/nima/miniconda3/bin/python model.py fashion-mnist-train-2.csv'
-		    sh 'cp trained_model.joblib fashion-mnist-train-2.csv_accuracy.txt .'
 		    }
 	    }
 	stage('Compare and Merge Release Branch') {
