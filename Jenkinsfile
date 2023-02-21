@@ -13,6 +13,11 @@ pipeline {
                 sh 'docker run -p 5000:5000 -d mnistmlops'
             }
         }
+        stage ('Test App'){
+            steps{
+                sh 'python test.py'
+            }
+        }
         
     }
 }
