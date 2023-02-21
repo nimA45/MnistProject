@@ -21,14 +21,16 @@ pipeline {
 	stage('Compare and Merge Release Branch') {
     steps {
         script {
-            def accuracy1 = readFile('fashion-mnist-train-1.csv_accuracy.txt').trim().toDouble()
-            def accuracy2 = readFile('fashion-mnist-train-2.csv_accuracy.txt').trim().toDouble()
-            
-            if (accuracy2 > accuracy1) {
-                sh 'git checkout main'
-                sh 'git merge release'
-            }
-        }
+        	def file1 = readFile('fashion-mnist-train-1.csv.txt').trim().toDouble()
+		def file2 = readFile('fashion-mnist-train-2.csv.txt').trim().toDouble()
+
+		if (file2 > file1) {
+		    sh 'git checkout main'
+		    sh 'git merge release'
+		} else {
+		    sh 'git branch -D release'
+		}
+
     }
 }
 
